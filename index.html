@@ -244,7 +244,7 @@
 
         <!-- Fausse Cagnotte -->
         <div class="text-center mb-16">
-            <a href="#" onclick="alert('Redirection vers un compte offshore aux Îles Caïmans...\n\nErreur 404 : Montant trop élevé, notre coffre-fort mathématique a explosé.'); return false;" class="inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all text-xl transform -rotate-1">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all text-xl transform -rotate-1">
                 💰 Financer notre campagne (Cagnotte)
             </a>
         </div>
@@ -254,12 +254,12 @@
             <h2 class="text-3xl font-black mb-2 uppercase">Sondage Officiel</h2>
             <p class="mb-8 text-lg font-bold">Pour qui allez-vous voter aux élections ?</p>
             
-            <div class="flex flex-col gap-4 items-center">
-                <button onclick="victoireElectorale()" class="w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div id="zoneBoutonsVote" class="flex flex-col gap-4 items-center">
+                <button id="boutonEuclidien" onclick="victoireElectorale()" class="w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all">
                     🗳️ LE PARTI EUCLIDIEN
                 </button>
 
-                <button id="boutonPiege" onmouseenter="transformerBouton()" ontouchstart="transformerBouton()" class="w-full md:w-3/4 p-4 bg-gray-200 text-gray-600 font-bold text-lg border-2 border-gray-400 shadow-[4px_4px_0px_0px_rgba(156,163,175,1)] cursor-help transition-all duration-300">
+                <button id="boutonPiege" onmouseenter="esquiverBouton()" ontouchstart="esquiverBouton()" class="w-full md:w-3/4 p-4 bg-gray-200 text-gray-600 font-bold text-lg border-2 border-gray-400 shadow-[4px_4px_0px_0px_rgba(156,163,175,1)] cursor-help transition-all duration-300">
                     Les autres candidats (Mauvais choix)
                 </button>
             </div>
@@ -305,18 +305,19 @@
         });
 
         // NOUVEAU: Le bouton piège qui se transforme
-        function transformerBouton() {
-            const btn = document.getElementById('boutonPiege');
-            // Transforme le bouton des adversaires en bouton Parti Euclidien
-            btn.innerHTML = "🗳️ LE PARTI EUCLIDIEN (J'ai changé d'avis !)";
-            btn.className = "w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer";
-            
-            // Connecte au clic de la victoire
-            btn.onclick = victoireElectorale;
-            
-            // Supprime l'évènement pour qu'il ne se re-déclenche pas
-            btn.onmouseenter = null;
-            btn.ontouchstart = null;
+        function esquiverBouton() {
+            const conteneur = document.getElementById('zoneBoutonsVote');
+            const boutonEuclidien = document.getElementById('boutonEuclidien');
+            const boutonPiege = document.getElementById('boutonPiege');
+
+            // Vérifie qui est le premier enfant
+            if (conteneur.firstElementChild === boutonEuclidien) {
+                // Si Euclidien est en premier, on met le Piège en premier
+                conteneur.insertBefore(boutonPiege, boutonEuclidien);
+            } else {
+                // Sinon, on remet Euclidien en premier
+                conteneur.insertBefore(boutonEuclidien, boutonPiege);
+            }
         }
 
         // NOUVEAU: L'écran de victoire avec les confettis
