@@ -37,10 +37,6 @@
             overflow-x: hidden;
         }
 
-        .spin-slow {
-            animation: spin 10s linear infinite;
-        }
-
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(5deg); }
@@ -56,12 +52,6 @@
             animation-delay: 2s;
         }
 
-        .strikethrough-hover:hover {
-            text-decoration: line-through;
-            color: red;
-        }
-
-        /* Glitch effect for the title */
         .glitch-text {
             position: relative;
         }
@@ -103,18 +93,39 @@
             80% { clip: rect(70px, 9999px, 20px, 0); }
             100% { clip: rect(50px, 9999px, 90px, 0); }
         }
+
+        .confetti-victoire {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #facc15;
+            animation: tomber 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes tomber {
+            0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+        }
     </style>
 </head>
 <body class="text-math-purple min-h-screen flex flex-col relative">
 
-    <!-- Logo en haut à gauche (identique) -->
-    <img src="logo.png" alt="Logo Euclidien" class="fixed top-24 left-10 w-56 h-56 opacity-40 floating-shape -z-10 object-contain">
-    
-    <!-- Logo en bas à droite (identique) -->
-    <img src="logo.png" alt="Logo Euclidien" class="fixed bottom-32 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
-    
-    <div class="fixed top-1/2 right-1/4 w-0 h-0 border-l-[50px] border-l-transparent border-t-[75px] border-t-purple-400 border-r-[50px] border-r-transparent opacity-30 floating-shape -z-10"></div>
+    <div id="ecranVictoire" class="fixed inset-0 bg-math-purple z-[100] hidden flex-col items-center justify-center text-center p-4">
+        <h1 class="text-6xl md:text-9xl font-black text-white mb-6 uppercase tracking-widest drop-shadow-[6px_6px_0px_#dc2626] animate-bounce">
+            VICTOIRE !
+        </h1>
+        <p class="text-2xl md:text-4xl font-bold bg-white text-math-purple inline-block px-8 py-4 shadow-[8px_8px_0px_0px_#dc2626] border-4 border-black mb-8 transform -rotate-2">
+            Le Parti Euclidien a pris le pouvoir.
+        </p>
+        <p class="text-xl text-white font-bold bg-black p-4 inline-block transform rotate-1">
+            La dictature de la logique commence. Préparez vos équerres. 📐
+        </p>
+    </div>
 
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Haut" class="fixed top-10 left-10 w-48 h-48 opacity-40 floating-shape -z-10 object-contain">
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Bas" class="fixed bottom-10 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
+    
     <header class="pt-20 pb-12 px-4 text-center border-b-4 border-math-purple bg-white bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
         <h1 class="text-5xl md:text-7xl font-bold mb-4 uppercase tracking-widest glitch-text" data-text="Le Parti Euclidien">Le Parti Euclidien</h1>
         <p class="text-xl md:text-2xl font-bold bg-math-red text-white inline-block px-4 py-2 transform -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -122,7 +133,7 @@
         </p>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl relative z-10">
+    <main id="contenuPrincipal" class="flex-grow container mx-auto px-4 py-12 max-w-4xl relative z-10">
 
         <section class="bg-white border-4 border-math-purple p-8 mb-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,0.1)] transform hover:-translate-y-2 transition-transform duration-300">
             <h2 class="text-3xl font-bold mb-6 border-b-2 border-math-purple pb-2 flex items-center">
@@ -132,7 +143,7 @@
                 Élèves, professeurs, chers vecteurs directeurs.
             </p>
             <p class="text-lg leading-relaxed mb-4">
-                La situation actuelle de notre classe est chaotique. Trop de variables aléatoires, pas assez de constantes. Le <strong class="bg-yellow-200 px-1">Parti Euclidien</strong> propose une approche radicale : appliquer la géométrie stricte à la gestion de notre scolarité.
+                La situation actuelle de notre classe est chaotique. Trop de variables aléatoires, pas assez de constantes. Le <strong class="bg-purple-200 px-1">Parti Euclidien</strong> propose une approche radicale : appliquer la géométrie stricte à la gestion de notre scolarité.
             </p>
             <p class="text-lg leading-relaxed font-bold">
                 Votez pour nous, et nous prouverons par A+B que nous sommes les meilleurs.
@@ -145,21 +156,18 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                <!-- Axiom 1 -->
                 <div class="bg-white border-2 border-black p-6 rounded-none shadow-[8px_8px_0px_0px_rgba(220,38,38,1)] hover:bg-red-50 transition-colors">
                     <div class="text-5xl font-black text-math-purple mb-4 opacity-50">I.</div>
                     <h3 class="text-xl font-bold mb-3 uppercase">La Règle du Triangle Rectangle</h3>
-                    <p class="text-sm">Si un élève est en retard (A), et que le prof est en colère (B), l'hypoténuse de l'excuse (C) sera toujours validée par les délégués. C² = A² + B² (où C est le mot d'excuse en béton).</p>
+                    <p class="text-sm">Si un élève est en retard (A), et le prof est en colère (B), l'hypoténuse de l'excuse (C) sera toujours validée par les délégués. C² = A² + B² (où C est le mot d'excuse en béton).</p>
                 </div>
 
-                <!-- Axiom 2 -->
                 <div class="bg-white border-2 border-black p-6 rounded-none shadow-[8px_8px_0px_0px_rgba(109,40,217,1)] hover:bg-purple-50 transition-colors">
                     <div class="text-5xl font-black text-math-red mb-4 opacity-50">II.</div>
-                    <h3 class="text-xl font-bold mb-3 uppercase">Théorème de la Pause C.Q.F.D</h3>
+                    <h3 class="text-xl font-bold mb-3 uppercase">Théorème de la Pause</h3>
                     <p class="text-sm">Toute récréation perçue comme "trop courte" verra sa durée multipliée par Pi (≈3.14). C'est mathématique, on ne peut pas contester les lois de l'univers.</p>
                 </div>
 
-                <!-- Axiom 3 -->
                 <div class="bg-white border-2 border-black p-6 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:bg-gray-50 transition-colors">
                     <div class="text-5xl font-black text-black mb-4 opacity-50">III.</div>
                     <h3 class="text-xl font-bold mb-3 uppercase">L'Équation du Devoir</h3>
@@ -173,33 +181,25 @@
             
             <div class="w-full md:w-1/2">
                 <h2 class="text-3xl font-bold mb-4">Projection de réussite</h2>
-                <p class="mb-4">Contrairement aux autres candidats dont les promesses sont des asymptotes (elles s'approchent de la réalité sans jamais la toucher), notre courbe de réussite est exponentielle.</p>
+                <p class="mb-4">Contrairement aux autres candidats dont les promesses sont des asymptotes, notre courbe de réussite est exponentielle.</p>
                 
                 <button id="calculateBtn" class="bg-math-red text-white border-2 border-black px-6 py-3 font-bold text-lg hover:bg-math-purple transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1">
                     Calculer notre chance de victoire
                 </button>
                 <div id="resultBox" class="mt-4 p-4 border-2 border-dashed border-gray-400 bg-gray-50 hidden font-bold text-xl text-center">
-                    <!-- Result will appear here -->
+                    <!-- Résultat ici -->
                 </div>
             </div>
 
             <div class="w-full md:w-1/2 h-64 border-2 border-black relative bg-grid-pattern">
-                <!-- SVG Graph Drawing -->
                 <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible">
-                    <!-- Axes -->
                     <line x1="10" y1="90" x2="95" y2="90" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
                     <line x1="10" y1="90" x2="10" y2="5" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
-                    
-                    <text x="5" y="10" font-size="4" font-family="monospace">Cool attitude</text>
+                    <text x="5" y="10" font-size="4" font-family="monospace">Succès</text>
                     <text x="80" y="98" font-size="4" font-family="monospace">Temps</text>
-
-                    <!-- The opponent's line -->
                     <path d="M 10 85 Q 50 85 90 85" fill="none" stroke="red" stroke-width="1" stroke-dasharray="2,2" />
                     <text x="60" y="83" font-size="3" fill="red" font-family="monospace">Autres candidats</text>
-
-                    <!-- The Euclidean line (animated via JS) -->
                     <path id="successCurve" d="M 10 90" fill="none" stroke="#6d28d9" stroke-width="3" />
-                    
                     <defs>
                         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" />
@@ -210,37 +210,58 @@
         </section>
 
         <section class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-8">Le Binôme Parfait</h2>
+            <h2 class="text-4xl font-bold mb-10 inline-block bg-white border-2 border-black py-2 px-6 shadow-[6px_6px_0px_0px_rgba(220,38,38,1)]">Le Binôme Parfait</h2>
             <div class="flex flex-col md:flex-row justify-center gap-12">
                 
-                <!-- Candidate 1: Cyriel -->
+                <!-- Cyriel -->
                 <div class="relative group">
                     <div class="absolute inset-0 bg-math-purple transform translate-x-3 translate-y-3 -z-10 transition-transform group-hover:translate-x-1 group-hover:translate-y-1"></div>
                     <div class="bg-white border-2 border-black p-4 w-full md:w-64">
                         <div class="w-48 h-48 bg-gray-200 border-2 border-black mb-4 mx-auto flex items-center justify-center overflow-hidden relative">
-                            <!-- Image for Cyriel -->
-                            <img src="WhatsApp Image 2026-10-12 at 14.37.30.png" alt="Cyriel" class="w-full h-full object-cover object-[center_65%] scale-125" onerror="this.onerror=null; this.src='https://placehold.co/200x200/e2e8f0/6d28d9?text=Cyriel';">
+                            <img src="WhatsApp Image 2026-10-12 at 14.37.30.png" alt="Cyriel" class="w-full h-full object-cover object-[center_65%] scale-125" onerror="this.src='https://placehold.co/200x200/e2e8f0/6d28d9?text=Cyriel';">
                         </div>
-                        <h3 class="font-bold text-xl uppercase">Cyriel</h3>
-                        <p class="text-sm italic font-bold text-math-purple">Candidat</p>
-                        <p class="mt-2 text-xs border-t border-dashed pt-2">Spécialité : <span class="font-bold">Bouffeuse de plante</span>.</p>
+                        <h3 class="font-bold text-2xl text-math-red uppercase">Cyriel</h3>
+                        <p class="text-lg italic font-bold text-math-purple border-b-2 border-math-purple pb-1 mb-2">Candidat</p>
+                        <p class="text-sm">Spécialité : <span class="font-bold">Bouffeuse de plante</span>.</p>
                     </div>
                 </div>
 
-                <!-- Candidate 2: Nathan -->
+                <!-- Nathan -->
                 <div class="relative group">
                     <div class="absolute inset-0 bg-math-red transform translate-x-3 translate-y-3 -z-10 transition-transform group-hover:translate-x-1 group-hover:translate-y-1"></div>
                     <div class="bg-white border-2 border-black p-4 w-full md:w-64">
                         <div class="w-48 h-48 bg-gray-200 border-2 border-black mb-4 mx-auto flex items-center justify-center overflow-hidden relative">
-                            <!-- Image for Nathan -->
-                            <img src="Sujet.png" alt="Nathan" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://placehold.co/200x200/e2e8f0/dc2626?text=Nathan';">
+                            <img src="Sujet.png" alt="Nathan" class="w-full h-full object-cover object-top" onerror="this.src='https://placehold.co/200x200/e2e8f0/dc2626?text=Nathan';">
                         </div>
-                        <h3 class="font-bold text-xl uppercase">Nathan</h3>
-                        <p class="text-sm italic font-bold text-math-red">Candidat</p>
-                        <p class="mt-2 text-xs border-t border-dashed pt-2">Spécialité : <span class="font-bold">VROUM VROUM</span>.</p>
+                        <h3 class="font-bold text-2xl text-math-purple uppercase">Nathan</h3>
+                        <p class="text-lg italic font-bold text-math-red border-b-2 border-math-red pb-1 mb-2">Candidat</p>
+                        <p class="text-sm">Spécialité : <span class="font-bold">VROUM VROUM</span>.</p>
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- Fausse Cagnotte -->
+        <div class="text-center mb-16">
+            <a href="#" onclick="alert('Redirection vers un compte offshore aux Îles Caïmans...\n\nErreur 404 : Montant trop élevé, notre coffre-fort mathématique a explosé.'); return false;" class="inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all text-xl transform -rotate-1">
+                💰 Financer notre campagne (Cagnotte)
+            </a>
+        </div>
+
+        <!-- Le Piège (Sondage) -->
+        <section class="bg-white border-4 border-math-red p-8 mb-8 text-center shadow-[12px_12px_0px_0px_rgba(220,38,38,0.3)] transform rotate-1">
+            <h2 class="text-3xl font-black mb-2 uppercase">Sondage Officiel</h2>
+            <p class="mb-8 text-lg font-bold">Pour qui allez-vous voter aux élections ?</p>
+            
+            <div class="flex flex-col gap-4 items-center">
+                <button onclick="victoireElectorale()" class="w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    🗳️ LE PARTI EUCLIDIEN
+                </button>
+
+                <button id="boutonPiege" onmouseenter="transformerBouton()" ontouchstart="transformerBouton()" class="w-full md:w-3/4 p-4 bg-gray-200 text-gray-600 font-bold text-lg border-2 border-gray-400 shadow-[4px_4px_0px_0px_rgba(156,163,175,1)] cursor-help transition-all duration-300">
+                    Les autres candidats (Mauvais choix)
+                </button>
             </div>
         </section>
 
@@ -248,88 +269,96 @@
 
     <footer class="bg-math-purple text-white text-center py-6 border-t-8 border-math-red relative z-20">
         <p class="font-bold text-xl mb-2">Ne soyez pas irrationnels.</p>
-        <p class="text-2xl mb-4 bg-white text-black inline-block px-4 py-1 transform rotate-1">Votez Parti Euclidien.</p>
-        <p class="text-xs opacity-70 mt-4">Ce site a été conçu avec un compas, une équerre et un peu de code.</p>
+        <p class="text-2xl mb-4 bg-white text-black inline-block px-4 py-1 transform rotate-1 border-2 border-black">Votez Parti Euclidien.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Logique du graphique (déjà existante et fonctionnelle)
             const calculateBtn = document.getElementById('calculateBtn');
             const resultBox = document.getElementById('resultBox');
             const successCurve = document.getElementById('successCurve');
 
             calculateBtn.addEventListener('click', () => {
-                // Playful loading effect
                 calculateBtn.disabled = true;
                 calculateBtn.textContent = "Calcul de l'intégrale...";
                 resultBox.classList.remove('hidden');
                 resultBox.innerHTML = '<span class="animate-pulse">Calcul en cours: x = (-b ± √(b² - 4ac)) / 2a...</span>';
-
-                // Reset path
                 successCurve.setAttribute('d', 'M 10 90');
-
-                let progress = 10;
                 
-                // Animate the SVG curve
+                let progress = 10;
                 const drawInterval = setInterval(() => {
                     progress += 2;
-                    // Draw an exponential-looking curve
-                    // Math formula: y = 90 - (progress-10)^2 / 80  (to fit the box)
                     const x = progress;
                     let y = 90 - Math.pow(progress - 10, 2) / 75;
-                    
-                    if (y < 10) y = 10; // Cap it at the top of the graph
-
+                    if (y < 10) y = 10;
                     const currentD = successCurve.getAttribute('d');
                     successCurve.setAttribute('d', `${currentD} L ${x} ${y}`);
-
-                    if (progress >= 90) {
-                        clearInterval(drawInterval);
-                    }
+                    if (progress >= 90) clearInterval(drawInterval);
                 }, 30);
-
 
                 setTimeout(() => {
                     resultBox.innerHTML = `Résultat: <span class="text-green-600 text-3xl">100%</span> de réussite prouvée scientifiquement.*<br><span class="text-xs font-normal text-gray-500">*Marge d'erreur de ±0.0001%</span>`;
                     calculateBtn.textContent = "CQFD.";
-                    
-                    // Add confetti effect using basic DOM manipulation
-                    createConfetti();
                 }, 1500);
             });
-
-            function createConfetti() {
-                const colors = ['#6d28d9', '#dc2626', '#000000', '#FFFFFF'];
-                for(let i=0; i < 50; i++) {
-                    const conf = document.createElement('div');
-                    conf.style.position = 'fixed';
-                    conf.style.width = '10px';
-                    conf.style.height = '10px';
-                    conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    conf.style.left = Math.random() * 100 + 'vw';
-                    conf.style.top = '-10px';
-                    conf.style.zIndex = '9999';
-                    // Random shapes
-                    if(Math.random() > 0.5) conf.style.borderRadius = '50%';
-                    
-                    document.body.appendChild(conf);
-
-                    const duration = Math.random() * 3 + 2;
-                    
-                    conf.animate([
-                        { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
-                        { transform: `translate3d(${Math.random()*200 - 100}px, 100vh, 0) rotate(${Math.random()*720}deg)`, opacity: 0 }
-                    ], {
-                        duration: duration * 1000,
-                        easing: 'cubic-bezier(.37,0,.63,1)',
-                        fill: 'forwards'
-                    });
-
-                    // Cleanup
-                    setTimeout(() => conf.remove(), duration * 1000);
-                }
-            }
         });
+
+        // NOUVEAU: Le bouton piège qui se transforme
+        function transformerBouton() {
+            const btn = document.getElementById('boutonPiege');
+            // Transforme le bouton des adversaires en bouton Parti Euclidien
+            btn.innerHTML = "🗳️ LE PARTI EUCLIDIEN (J'ai changé d'avis !)";
+            btn.className = "w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer";
+            
+            // Connecte au clic de la victoire
+            btn.onclick = victoireElectorale;
+            
+            // Supprime l'évènement pour qu'il ne se re-déclenche pas
+            btn.onmouseenter = null;
+            btn.ontouchstart = null;
+        }
+
+        // NOUVEAU: L'écran de victoire avec les confettis
+        function victoireElectorale() {
+            document.getElementById('contenuPrincipal').style.display = 'none';
+            const ecran = document.getElementById('ecranVictoire');
+            ecran.classList.remove('hidden');
+            ecran.classList.add('flex');
+            
+            // Lancer plein de confettis
+            setInterval(genererConfettiVictoire, 150);
+            for(let i=0; i<40; i++) genererConfettiVictoire();
+            
+            // Remonter en haut de la page
+            window.scrollTo(0, 0);
+        }
+
+        function genererConfettiVictoire() {
+            const colors = ['#dc2626', '#ffffff', '#000000', '#facc15']; // Rouge, Blanc, Noir, Jaune
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti-victoire');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Taille aléatoire
+            const size = Math.random() * 15 + 5;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            
+            // Vitesse aléatoire
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            
+            // Forme aléatoire (carré ou rond)
+            if(Math.random() > 0.5) confetti.style.borderRadius = '50%';
+            
+            document.getElementById('ecranVictoire').appendChild(confetti);
+            
+            // Nettoyage après l'animation
+            setTimeout(() => {
+                if(confetti.parentNode) confetti.parentNode.removeChild(confetti);
+            }, 5000);
+        }
     </script>
 </body>
 </html>
