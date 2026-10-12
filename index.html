@@ -107,6 +107,16 @@
             0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
         }
+
+        @keyframes tonneau {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.5); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .faire-un-tonneau {
+            animation: tonneau 2s ease-in-out;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="text-math-purple min-h-screen flex flex-col relative">
@@ -123,9 +133,9 @@
         </p>
     </div>
 
-    <img src="logo.png" alt="Logo Euclidien Haut" class="fixed top-10 left-10 w-48 h-48 opacity-40 floating-shape -z-10 object-contain">
-    <img src="logo.png" alt="Logo Euclidien Bas" class="fixed bottom-10 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
-
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Haut" class="fixed top-10 left-10 w-48 h-48 opacity-40 floating-shape -z-10 object-contain">
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Bas" class="fixed bottom-10 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
+    
     <header class="pt-20 pb-12 px-4 text-center border-b-4 border-math-purple bg-white bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
         <h1 class="text-5xl md:text-7xl font-bold mb-4 uppercase tracking-widest glitch-text" data-text="Le Parti Euclidien">Le Parti Euclidien</h1>
         <p class="text-xl md:text-2xl font-bold bg-math-red text-white inline-block px-4 py-2 transform -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -237,6 +247,33 @@
                         <p class="text-lg italic font-bold text-math-red border-b-2 border-math-red pb-1 mb-2">Candidat</p>
                         <p class="text-sm">Spécialité : <span class="font-bold">VROUM VROUM</span>.</p>
                     </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold mb-10 text-center inline-block bg-white border-2 border-black py-2 px-6 shadow-[6px_6px_0px_0px_rgba(109,40,217,1)] transform -rotate-1">
+                Ils nous soutiennent (Presque)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bg-white p-6 border-4 border-math-purple shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] relative">
+                    <div class="text-6xl text-gray-200 absolute top-2 left-2 font-serif opacity-50">"</div>
+                    <p class="text-lg relative z-10 italic mb-4 font-bold text-gray-800 mt-4">S'ils avaient été là à mon époque, mon théorème s'appellerait le théorème de Cyriel et Nathan.</p>
+                    <p class="text-right font-black uppercase text-math-red">- Pythagore</p>
+                </div>
+                
+                <div class="bg-white p-6 border-4 border-math-red shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] relative transform md:translate-y-4">
+                    <div class="text-6xl text-gray-200 absolute top-2 left-2 font-serif opacity-50">"</div>
+                    <p class="text-lg relative z-10 italic mb-4 font-bold text-gray-800 mt-4">Leur programme est tellement proportionnel que j'en ai pleuré d'émotion.</p>
+                    <p class="text-right font-black uppercase text-math-purple">- Thalès</p>
+                </div>
+                
+                <div class="bg-white p-6 border-4 border-black shadow-[6px_6px_0px_0px_rgba(109,40,217,1)] relative">
+                    <div class="text-6xl text-gray-200 absolute top-2 left-2 font-serif opacity-50">"</div>
+                    <p class="text-lg relative z-10 italic mb-4 font-bold text-gray-800 mt-4">E=mc² ? Non. E=Euclidien. C'est la seule vérité absolue de l'univers.</p>
+                    <p class="text-right font-black uppercase text-black">- Albert Einstein</p>
                 </div>
 
             </div>
@@ -360,6 +397,30 @@
                 if(confetti.parentNode) confetti.parentNode.removeChild(confetti);
             }, 5000);
         }
+
+        let sequenceSaisie = '';
+        document.addEventListener('keydown', (e) => {
+            // On ajoute la touche tapée à la séquence
+            sequenceSaisie += e.key;
+            
+            // On ne garde que les 3 derniers caractères
+            if (sequenceSaisie.length > 3) {
+                sequenceSaisie = sequenceSaisie.substring(sequenceSaisie.length - 3);
+            }
+            
+            // Si la séquence est "314"
+            if (sequenceSaisie === '314') {
+                document.body.classList.add('faire-un-tonneau');
+                
+                // On retire la classe après l'animation pour pouvoir recommencer
+                setTimeout(() => {
+                    document.body.classList.remove('faire-un-tonneau');
+                }, 2000);
+                
+                // Réinitialise la séquence
+                sequenceSaisie = '';
+            }
+        });
     </script>
 </body>
 </html>
