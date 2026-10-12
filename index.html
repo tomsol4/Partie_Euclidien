@@ -6,6 +6,7 @@
     <title>Le Parti Euclidien - Pour une classe carrée !</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -25,6 +26,7 @@
             }
         }
     </script>
+    
     <style>
         body {
             background-color: #f8fafc;
@@ -96,8 +98,8 @@
 
         .confetti-victoire {
             position: fixed;
-            width: 15px;
-            height: 15px;
+            width: 10px;
+            height: 10px;
             background-color: #facc15;
             animation: tomber 3s linear forwards;
             z-index: 9999;
@@ -134,12 +136,12 @@
         </p>
     </div>
 
-    <img src="logo.png" alt="Logo Euclidien Haut" class="fixed bottom-20 left-10 w-48 h-48 opacity-40 floating-shape -z-10 object-contain">
-    <img src="logo.png" alt="Logo Euclidien Bas" class="fixed bottom-10 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Haut" class="fixed top-10 left-10 w-48 h-48 opacity-40 floating-shape -z-10 object-contain">
+    <img src="_6e78ff-removebg-preview.png" alt="Logo Euclidien Bas" class="fixed bottom-10 right-10 w-56 h-56 opacity-40 floating-shape-delay -z-10 object-contain">
     
-    <header class="pt-20 pb-12 px-4 text-center border-b-4 border-math-purple bg-white bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
-        <h1 class="text-5xl md:text-7xl font-bold mb-4 uppercase tracking-widest glitch-text" data-text="Le Parti Euclidien">Le Parti Euclidien</h1>
-        <p class="text-xl md:text-2xl font-bold bg-math-red text-white inline-block px-4 py-2 transform -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+    <header class="pt-6 pb-6 px-4 text-center border-b-4 border-math-purple bg-white bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <h1 class="text-4xl md:text-6xl font-bold mb-2 uppercase tracking-widest glitch-text" data-text="Le Parti Euclidien">Le Parti Euclidien</h1>
+        <p class="text-lg md:text-xl font-bold bg-math-red text-white inline-block px-4 py-1 transform -rotate-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             Pour une classe strictement parallèle au succès.
         </p>
     </header>
@@ -280,19 +282,17 @@
             </div>
         </section>
 
-        <!-- Fausse Cagnotte -->
         <div class="text-center mb-16">
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all text-xl transform -rotate-1">
                 💰 Financer notre campagne (Cagnotte)
             </a>
         </div>
 
-        <!-- Le Piège (Sondage) -->
         <section class="bg-white border-4 border-math-red p-8 mb-8 text-center shadow-[12px_12px_0px_0px_rgba(220,38,38,0.3)] transform rotate-1">
             <h2 class="text-3xl font-black mb-2 uppercase">Sondage Officiel</h2>
             <p class="mb-8 text-lg font-bold">Pour qui allez-vous voter aux élections ?</p>
             
-            <div id="zoneBoutonsVote" class="flex flex-col gap-4 items-center">
+            <div id="zoneBoutonsVote" class="flex flex-col gap-4 items-center transition-all duration-300">
                 <button id="boutonEuclidien" onclick="victoireElectorale()" class="w-full md:w-3/4 p-4 bg-math-purple text-white font-bold text-xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all">
                     🗳️ LE PARTI EUCLIDIEN
                 </button>
@@ -312,7 +312,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Logique du graphique (déjà existante et fonctionnelle)
+            
+            // Logique du bouton "Calculer"
             const calculateBtn = document.getElementById('calculateBtn');
             const resultBox = document.getElementById('resultBox');
             const successCurve = document.getElementById('successCurve');
@@ -336,10 +337,11 @@
                 }, 30);
 
                 setTimeout(() => {
+                    // Utilisation des "backticks" pour éviter le bug HTML
                     resultBox.innerHTML = `Résultat: <span class="text-green-600 text-3xl">100%</span> de réussite prouvée scientifiquement.*<br><span class="text-xs font-normal text-gray-500">*Marge d'erreur de ±0.0001%</span>`;
                     calculateBtn.textContent = "CQFD.";
                     
-                    // Lancer les paillettes/confettis
+                    // Lancer les petites paillettes aléatoires
                     for(let i=0; i<30; i++) {
                         setTimeout(genererConfettiVictoire, Math.random() * 500);
                     }
@@ -347,83 +349,67 @@
             });
         });
 
-        // NOUVEAU: Le bouton piège qui se transforme
+        // Logique : Le bouton piège du sondage s'enfuit !
         function esquiverBouton() {
             const conteneur = document.getElementById('zoneBoutonsVote');
             const boutonEuclidien = document.getElementById('boutonEuclidien');
             const boutonPiege = document.getElementById('boutonPiege');
 
-            // Vérifie qui est le premier enfant
             if (conteneur.firstElementChild === boutonEuclidien) {
-                // Si Euclidien est en premier, on met le Piège en premier
                 conteneur.insertBefore(boutonPiege, boutonEuclidien);
             } else {
-                // Sinon, on remet Euclidien en premier
                 conteneur.insertBefore(boutonEuclidien, boutonPiege);
             }
         }
 
-        // NOUVEAU: L'écran de victoire avec les confettis
+        // Logique : L'écran de Victoire (Bouton Euclidien)
         function victoireElectorale() {
             document.getElementById('contenuPrincipal').style.display = 'none';
             const ecran = document.getElementById('ecranVictoire');
             ecran.classList.remove('hidden');
             ecran.classList.add('flex');
             
-            // Lancer plein de confettis
             setInterval(genererConfettiVictoire, 150);
             for(let i=0; i<40; i++) genererConfettiVictoire();
             
-            // Remonter en haut de la page
             window.scrollTo(0, 0);
         }
 
+        // Logique : Génération de petites confettis
         function genererConfettiVictoire() {
-            const colors = ['#dc2626', '#ffffff', '#000000', '#facc15']; // Rouge, Blanc, Noir, Jaune
+            const colors = ['#dc2626', '#ffffff', '#000000', '#facc15']; 
             const confetti = document.createElement('div');
             confetti.classList.add('confetti-victoire');
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             
-            // Taille aléatoire
-            const size = Math.random() * 15 + 5;
+            // Tailles variables pour les confettis
+            const size = Math.random() * 8 + 4; 
             confetti.style.width = size + 'px';
             confetti.style.height = size + 'px';
             
-            // Vitesse aléatoire
             confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            
-            // Forme aléatoire (carré ou rond)
             if(Math.random() > 0.5) confetti.style.borderRadius = '50%';
             
             document.body.appendChild(confetti);
             
-            // Nettoyage après l'animation
             setTimeout(() => {
                 if(confetti.parentNode) confetti.parentNode.removeChild(confetti);
             }, 5000);
         }
 
+        // Logique : Easter Egg 3.1.4 (Tonneau)
         let sequenceSaisie = '';
         document.addEventListener('keydown', (e) => {
-            // On ajoute la touche tapée à la séquence
             sequenceSaisie += e.key;
-            
-            // On ne garde que les 3 derniers caractères
             if (sequenceSaisie.length > 3) {
                 sequenceSaisie = sequenceSaisie.substring(sequenceSaisie.length - 3);
             }
-            
-            // Si la séquence est "314"
             if (sequenceSaisie === '314') {
                 document.body.classList.add('faire-un-tonneau');
-                
-                // On retire la classe après l'animation pour pouvoir recommencer
                 setTimeout(() => {
                     document.body.classList.remove('faire-un-tonneau');
                 }, 2000);
-                
-                // Réinitialise la séquence
                 sequenceSaisie = '';
             }
         });
