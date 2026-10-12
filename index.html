@@ -95,12 +95,13 @@
         }
 
         .confetti-victoire {
-            position: absolute;
+            position: fixed;
             width: 15px;
             height: 15px;
             background-color: #facc15;
             animation: tomber 3s linear forwards;
-            z-index: 999;
+            z-index: 9999;
+            pointer-events: none;
         }
 
         @keyframes tomber {
@@ -337,6 +338,11 @@
                 setTimeout(() => {
                     resultBox.innerHTML = `Résultat: <span class="text-green-600 text-3xl">100%</span> de réussite prouvée scientifiquement.*<br><span class="text-xs font-normal text-gray-500">*Marge d'erreur de ±0.0001%</span>`;
                     calculateBtn.textContent = "CQFD.";
+                    
+                    // Lancer les paillettes/confettis
+                    for(let i=0; i<30; i++) {
+                        setTimeout(genererConfettiVictoire, Math.random() * 500);
+                    }
                 }, 1500);
             });
         });
@@ -390,7 +396,7 @@
             // Forme aléatoire (carré ou rond)
             if(Math.random() > 0.5) confetti.style.borderRadius = '50%';
             
-            document.getElementById('ecranVictoire').appendChild(confetti);
+            document.body.appendChild(confetti);
             
             // Nettoyage après l'animation
             setTimeout(() => {
